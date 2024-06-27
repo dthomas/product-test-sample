@@ -49,8 +49,17 @@ class ProductController extends BaseController
     }
 
     #[Route('/api/products/{id}', name: 'api_product_show', methods: ['GET'])]
-    public function show(Product $product): JsonResponse
+    public function show(int $id, ProductRepository $productRepository): JsonResponse
     {
+        $product = $productRepository->find($id);
+
+        if (!$product) {
+            return new JsonResponse(
+                ['error' => 'Product not found'],
+                JsonResponse::HTTP_NOT_FOUND
+            );
+        }
+
         return $this->json($product);
     }
 

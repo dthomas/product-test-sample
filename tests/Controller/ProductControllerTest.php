@@ -7,6 +7,7 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductControllerTest extends WebTestCase
 {
@@ -134,5 +135,20 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(422, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
+    }
+
+    public function testShowProductNotFound()
+    {
+        $this->createAuthenticatedClient();
+
+        // Assuming the product with ID 9999 doesn't exist
+        $this->client->request('GET', '/api/products/9999');
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(JsonResponse::HTTP_NOT_FOUND, $response->getStatusCode());
+
+        $responseData = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('error', $responseData);
+        $this->assertEquals('Product not found', $responseData['error']);
     }
 }
