@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 20; $i++) {
             $product = new Product();
             $product->setName('product ' . $i);
-            $product->setPrice(mt_rand(10, 100));
+            $product->setPrice((string)mt_rand(10, 100));
             $product->setSku("PT-$i");
             $product->setCreatedAt($now);
             $manager->persist($product);

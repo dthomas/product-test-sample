@@ -52,7 +52,14 @@ class ProductControllerTest extends WebTestCase
         $this->createAuthenticatedClient();
         $data = ['name' => 'Test Product', 'price' => 99.99, 'sku' => 'SK-123'];
 
-        $this->client->request('POST', '/api/products', [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($data));
+        $this->client->request(
+            'POST',
+            '/api/products',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode($data)
+        );
 
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
@@ -72,7 +79,14 @@ class ProductControllerTest extends WebTestCase
         $this->createAuthenticatedClient();
         $data = ['name' => 'Updated Product', 'price' => 149.99, 'sku' => 'SK-456'];
 
-        $this->client->request('PUT', '/api/products/1', [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($data));
+        $this->client->request(
+            'PUT',
+            '/api/products/1',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode($data)
+        );
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
@@ -91,7 +105,14 @@ class ProductControllerTest extends WebTestCase
         $this->createAuthenticatedClient();
         $data = ['name' => ''];
 
-        $this->client->request('POST', '/api/products', [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($data));
+        $this->client->request(
+            'POST',
+            '/api/products',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode($data)
+        );
 
         $this->assertEquals(422, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
@@ -102,7 +123,14 @@ class ProductControllerTest extends WebTestCase
         $this->createAuthenticatedClient();
         $data = ['name' => ''];
 
-        $this->client->request('PUT', '/api/products/1', [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($data));
+        $this->client->request(
+            'PUT',
+            '/api/products/1',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode($data)
+        );
 
         $this->assertEquals(422, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());

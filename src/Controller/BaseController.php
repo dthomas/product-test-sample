@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormInterface;
 
 class BaseController extends AbstractController
 {
-    protected function getErrorsFromForm(FormInterface $form)
+    protected function getErrorsFromForm(FormInterface $form): array
     {
         $errors = array();
         foreach ($form->getErrors() as $error) {

@@ -26,7 +26,7 @@ class ProductController extends BaseController
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $product = new Product();
-        $data = json_decode($request->getContent(), true);
+        $data = (array)json_decode($request->getContent(), true);
         $form = $this->createForm(ProductType::class, $product);
         $form->submit($data);
 
@@ -57,7 +57,7 @@ class ProductController extends BaseController
     #[Route('/api/products/{id}', name: 'api_products_update', methods: ['PUT'])]
     public function update(Product $product, Request $request, EntityManagerInterface $em): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
+        $data = (array)json_decode($request->getContent(), true);
         $form = $this->createForm(ProductType::class, $product);
         $form->submit($data);
 
