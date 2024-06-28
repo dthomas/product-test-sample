@@ -151,4 +151,19 @@ class ProductControllerTest extends WebTestCase
         $this->assertArrayHasKey('error', $responseData);
         $this->assertEquals('Product not found', $responseData['error']);
     }
+
+    public function testDestroyProductNotFound()
+    {
+        $this->createAuthenticatedClient();
+
+        // Assuming 12345 is a non-existent product ID
+        $this->client->request('DELETE', '/api/products/12345');
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(JsonResponse::HTTP_NOT_FOUND, $response->getStatusCode());
+
+        $responseData = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('error', $responseData);
+        $this->assertEquals('Product not found', $responseData['error']);
+    }
 }
