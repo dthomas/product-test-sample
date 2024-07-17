@@ -8,10 +8,10 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormFactoryBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 
 final class ProductService
 {
@@ -21,12 +21,25 @@ final class ProductService
         private readonly EntityManagerInterface $em,
         private readonly ProductRepository $productRepository,
         private readonly FormFactoryInterface $formFactory,
+        private readonly SerializerInterface $serializer,
     ) {
     }
 
     public function getAllProducts(): JsonResponse
     {
-        return new JsonResponse($this->productRepository->findAll());
+        $result = $this->productRepository->findAll();
+        $data = [];
+        foreach ($result as $item) {
+            $data[] = [
+                'id' => $item->getId(),
+                'name' => $item->getName(),
+                'sku' => $item->getName(),
+                'price' => $item->getPrice(),
+                'created_at' => $item->getCreatedAt()->format(\DateTimeImmutable::ATOM),
+                'updated_at' => $item->getUpdatedAt()?->format(\DateTimeImmutable::ATOM),
+            ];
+        }
+        return new JsonResponse($data);
     }
 
     public function createProduct(Request $request): JsonResponse
@@ -65,7 +78,14 @@ final class ProductService
             );
         }
 
-        return new JsonResponse($product);
+        return new JsonResponse([
+            'id' => $product->getId(),
+            'name' => $product->getName(),
+            'sku' => $product->getName(),
+            'price' => $product->getPrice(),
+            'created_at' => $product->getCreatedAt()->format(\DateTimeImmutable::ATOM),
+            'updated_at' => $product->getUpdatedAt()?->format(\DateTimeImmutable::ATOM),
+        ]);
     }
 
     public function updateProduct(Product $product, Request $request): JsonResponse
