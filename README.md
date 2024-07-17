@@ -1,10 +1,12 @@
 ## How to use
 1. Make sure to have Docker installed in your system.
-2. Copy `.env` to `.env.local` and modify the environment variables to suite your requirements.
-3. Run `docker compose up -d` to setup docker
-4. Create the database using `symfony console doctrine:schema:create` command
-5. Load sample data using  `symfony console doctrine:fixtures:load` command
-6. You may run tests using `bin/phpunit`
+2. Run `symfony check:req` to ensure that your system meets all requirements needed by Symfony. If you do not have `symfony-cli` installed, be sure to [install it](https://symfony.com/download).
+3. Copy `.env` to `.env.local` and modify the environment variables to suite your requirements.
+4. Run `composer install` to install all dependencies.
+5. Run `docker compose up -d` to setup docker
+6. Create the database using `symfony console doctrine:schema:create` command
+7. Load sample data using  `symfony console doctrine:fixtures:load` command
+8. You may run tests using `bin/phpunit`
 
 ## API Endpoints
 
