@@ -7,6 +7,7 @@
 6. Create the database using `symfony console doctrine:schema:create` command
 7. Load sample data using  `symfony console doctrine:fixtures:load` command
 8. You may run tests using `bin/phpunit`
+9. Run the application using `symfony serve`
 
 ## API Endpoints
 
