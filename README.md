@@ -1,9 +1,10 @@
 ## How to use
 1. Make sure to have Docker installed in your system.
-2. Copy .env to .env.local and modify the environment variables to suite your requirements.
+2. Copy `.env` to `.env.local` and modify the environment variables to suite your requirements.
 3. Run `docker compose up -d` to setup docker
-4. You may run tests using `bin/console` phpunit
-5. Load sample data using  `bin/console doctrine:fixtures:load` command
+4. Create the database using `symfony console doctrine:schema:create` command
+5. Load sample data using  `symfony console doctrine:fixtures:load` command
+6. You may run tests using `bin/phpunit`
 
 ## API Endpoints
 
@@ -53,8 +54,8 @@ curl -X GET -k -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJ
   "name": "product 1",
   "price": "90.00",
   "sku": "PT-1",
-  "createdAt": "2024-06-27T14:32:05+00:00",
-  "updatedAt": null
+  "created_at": "2024-06-27T14:32:05+00:00",
+  "updated_at": null
 }
 
 ### Invalid Request
